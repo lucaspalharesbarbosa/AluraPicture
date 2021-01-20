@@ -12,6 +12,6 @@ export class PhotoService {
 
     listFromUserName(userName: string): Observable<Photo[]> {
         return this.httpClient
-            .get<Photo[]>(this._urlApiBase + '/flavio/photos');
+            .get<Photo[]>(this._urlApiBase + `/${userName}/photos`);
     }
 }
