@@ -1,8 +1,8 @@
 import { AbstractControl } from '@angular/forms';
 
 export function  lowerCaseValidator(control: AbstractControl) {
-    const invalidValue = control.value.trim() && !/^[a-z0-9_\-]+$/.test(control.value)
-    if(invalidValue) {
+    const isInvalidValue = control.value.trim() && !/^[a-z0-9_\-]+$/.test(control.value)
+    if(isInvalidValue) {
         return { lowerCase: true };
     }
     
