@@ -8,6 +8,8 @@ import * as jtw_decode from 'jwt-decode';
 @Injectable({ providedIn: 'root' })
 export class UserService {
     private userSubject = new BehaviorSubject<User>(null);
+    private userName: string;
+
     constructor(private tokenService: TokenService) {
         this.tokenService.hasToken()
             && this.decodeAndNotify();
@@ -21,6 +23,7 @@ export class UserService {
     private decodeAndNotify() {
         const token = this.tokenService.getToken();
         const user = jtw_decode(token) as User;
+        this.userName = user.name;
         this.userSubject.next(user);
     }
 
@@ -31,5 +34,13 @@ export class UserService {
     logout() {
         this.tokenService.removeToken();
         this.userSubject.next(null);
+    }
+
+    isLogged(): boolean {
+        return this.tokenService.hasToken();
+    }
+
+    getUserName(): string {
+        return this.userName;
     }
 }
