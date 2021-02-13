@@ -7,8 +7,7 @@ import { Photo } from "../photo/photo";
 import { PhotoComment } from "../photo/photo-comment";
 
 @Component({
-    templateUrl: './photo-details.component.html',
-    styleUrls: ['photo-details.css']
+    templateUrl: './photo-details.component.html'
 })
 export class PhotoDetailsComponent implements OnInit {
     photo$: Observable<Photo>;
