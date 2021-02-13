@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
 import { Photo } from "./photo";
+import { PhotoComment } from "./photo-comment";
 
 @Injectable({ providedIn: 'root' })
 export class PhotoService {
@@ -32,7 +33,11 @@ export class PhotoService {
         return this.httpClient.post(this._urlApiBase + '/photos/upload', formData);
     }
 
-    findById(id: string): Observable<Photo> {
-        return this.httpClient.get<Photo>(this._urlApiBase + '/photos/' + id);
+    findById(photoId: number): Observable<Photo> {
+        return this.httpClient.get<Photo>(this._urlApiBase + '/photos/' + photoId);
+    }
+
+    getComments(photoId: number) {
+        return this.httpClient.get<PhotoComment[]>(this._urlApiBase + '/photos/' + photoId + '/comments');
     }
 }
