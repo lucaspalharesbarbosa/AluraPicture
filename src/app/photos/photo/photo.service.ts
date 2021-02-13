@@ -40,4 +40,9 @@ export class PhotoService {
     getComments(photoId: number) {
         return this.httpClient.get<PhotoComment[]>(this._urlApiBase + '/photos/' + photoId + '/comments');
     }
+
+    addComment(photoId: number, commentText: string) {
+        return this.httpClient.post(this._urlApiBase + '/photos/' + photoId + '/comments', { commentText });
+
+    }
 }
