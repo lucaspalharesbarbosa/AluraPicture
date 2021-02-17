@@ -37,12 +37,16 @@ export class PhotoService {
         return this.httpClient.get<Photo>(this._urlApiBase + '/photos/' + photoId);
     }
 
-    getComments(photoId: number) {
+    getComments(photoId: number): Observable<PhotoComment[]> {
         return this.httpClient.get<PhotoComment[]>(this._urlApiBase + '/photos/' + photoId + '/comments');
     }
 
-    addComment(photoId: number, commentText: string) {
+    addComment(photoId: number, commentText: string): Observable<Object> {
         return this.httpClient.post(this._urlApiBase + '/photos/' + photoId + '/comments', { commentText });
 
+    }
+
+    removePhoto(photoId: number): Observable<Object> {
+        return this.httpClient.delete(this._urlApiBase + '/photos/' + photoId);
     }
 }
