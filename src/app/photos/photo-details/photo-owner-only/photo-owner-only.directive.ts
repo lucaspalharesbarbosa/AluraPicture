@@ -19,10 +19,9 @@ export class PhotoOwnerOnlyDirective implements  OnInit {
     ngOnInit(): void {
         this.userService.getUser()
             .subscribe(user => {
-                const userIsLoggedOut = !user;
-                const photoIsNotTheUser = user.id != this.ownedPhoto.userId;
+                const photoIsNotTheUser = !user || user.id != this.ownedPhoto.userId;
                 
-                if (userIsLoggedOut || photoIsNotTheUser) {
+                if (photoIsNotTheUser) {
                     this.hideElement();
                 }
             })
