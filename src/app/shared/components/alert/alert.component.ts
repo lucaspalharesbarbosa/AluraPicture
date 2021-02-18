@@ -8,7 +8,7 @@ import { Alert, AlertType } from "./alert";
     templateUrl: './alert.component.html'
 })
 export class AlertComponent {
-    @Input() timeout = 3000;
+    @Input() timeout = 4000;
     alerts: Alert[] = [];
 
     constructor(private alertService: AlertService) {
