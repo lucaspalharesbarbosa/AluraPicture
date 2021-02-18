@@ -36,8 +36,12 @@ const routes: Routes = [
 
     },
     { 
-        path:'**',
+        path:'not-found',
         component: NotFoundComponent
+    },
+    { 
+        path:'**',
+        redirectTo: 'not-found'
     }
 ];
 
