@@ -5,16 +5,19 @@ import { map, catchError } from "rxjs/operators";
 
 import { Photo } from "./photo";
 import { PhotoComment } from "./photo-comment";
+import { environment } from '../../../environments/environment';
+
+const API_URL = environment.apiUrl;
+
 
 @Injectable({ providedIn: 'root' })
 export class PhotoService {
-    private _urlApiBase = 'http://localhost:3000';
 
     constructor(private httpClient: HttpClient) { }
 
     listFromUserName(userName: string): Observable<Photo[]> {
         return this.httpClient
-            .get<Photo[]>(this._urlApiBase + `/${userName}/photos`);
+            .get<Photo[]>(API_URL + `/${userName}/photos`);
     }
 
     listFromUserNamePaginated(userName: string, page: number): Observable<Photo[]> {
@@ -22,7 +25,7 @@ export class PhotoService {
             .append('page', page.toString());
 
         return this.httpClient
-            .get<Photo[]>(this._urlApiBase + `/${userName}/photos`, { params });
+            .get<Photo[]>(API_URL + `/${userName}/photos`, { params });
     }
 
     upload(description: string, allowComments: boolean, file: File): Observable<Object> {
@@ -31,29 +34,29 @@ export class PhotoService {
         formData.append('allowComments', allowComments ? 'true': 'false');
         formData.append('imageFile', file);
 
-        return this.httpClient.post(this._urlApiBase + '/photos/upload', formData);
+        return this.httpClient.post(API_URL + '/photos/upload', formData);
     }
 
     findById(photoId: number): Observable<Photo> {
-        return this.httpClient.get<Photo>(this._urlApiBase + '/photos/' + photoId);
+        return this.httpClient.get<Photo>(API_URL + '/photos/' + photoId);
     }
 
     getComments(photoId: number): Observable<PhotoComment[]> {
-        return this.httpClient.get<PhotoComment[]>(this._urlApiBase + '/photos/' + photoId + '/comments');
+        return this.httpClient.get<PhotoComment[]>(API_URL + '/photos/' + photoId + '/comments');
     }
 
     addComment(photoId: number, commentText: string): Observable<Object> {
-        return this.httpClient.post(this._urlApiBase + '/photos/' + photoId + '/comments', { commentText });
+        return this.httpClient.post(API_URL + '/photos/' + photoId + '/comments', { commentText });
 
     }
 
     removePhoto(photoId: number): Observable<Object> {
-        return this.httpClient.delete(this._urlApiBase + '/photos/' + photoId);
+        return this.httpClient.delete(API_URL + '/photos/' + photoId);
     }
 
     like(photoId: number): Observable<boolean> {
         return this.httpClient
-            .post(this._urlApiBase + '/photos/' + photoId + '/like', { }, { observe: 'response' })
+            .post(API_URL + '/photos/' + photoId + '/like', { }, { observe: 'response' })
             .pipe(map(respose => true))
             .pipe(catchError(err => {
                 return err.status == '304'
