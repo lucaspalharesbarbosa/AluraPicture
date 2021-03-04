@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://enderecodaapi'
+  apiUrl: 'http://enderecodaapi',
+  serverLogApi: 'suaapiaqui'
 };
