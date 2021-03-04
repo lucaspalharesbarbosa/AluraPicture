@@ -58,6 +58,10 @@ export class SignUpComponent implements OnInit {
     }
 
     signUp() {
+        if(this.signupForm.invalid || this.signupForm.pending) {
+            return;
+        }
+        
         const newUser = this.signupForm.getRawValue() as NewUser;
         this.signUpService
             .signUp(newUser)
