@@ -55,6 +55,9 @@
         <ap-vmessage *ngIf="signupForm.get('password').errors?.maxlength && (form.submitted || signupForm.get('password').touched)" 
                      text="Miximum length is 18">
         </ap-vmessage>
+        <ap-vmessage *ngIf="signupForm.errors?.userNameEqualPassword" 
+                     text="Username and password must be different">
+        </ap-vmessage>
     </div>
 
     <button class="btn btn-primary btn-block">Register</button>

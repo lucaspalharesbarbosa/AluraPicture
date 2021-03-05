@@ -1,12 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
 
+import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
 import { lowerCaseValidator } from 'src/app/shared/validators/lower-case.validator';
 import { NewUser } from './new-user';
 import { SignUpService } from './signup.service';
 import { UserNotTakenValidatorService } from './user-not-taken.validator.service';
+import { userNameIsDifferentPasswordValidator } from './username-is-different-password-validator';
 
 @Component({
     templateUrl: './signup.component.html',
@@ -54,6 +55,8 @@ export class SignUpComponent implements OnInit {
                 Validators.minLength(8),
                 Validators.maxLength(14)
             ]]
+        }, {
+            validator: userNameIsDifferentPasswordValidator
         })
     }
 
@@ -61,7 +64,7 @@ export class SignUpComponent implements OnInit {
         if(this.signupForm.invalid || this.signupForm.pending) {
             return;
         }
-        
+
         const newUser = this.signupForm.getRawValue() as NewUser;
         this.signUpService
             .signUp(newUser)
